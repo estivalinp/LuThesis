@@ -6,4 +6,4 @@ LuThesis is based on [ThuThesis](https://github.com/xueruini/thuthesis) (LaTeX t
 LuThesis为 <b>L</b>anzhou <b>U</b>niversity of <b>T</b>echnology <b>Thesis</b> LaTeX Template之缩写。
 
 此宏包旨在建立一个简单易用的兰州理工大学学位论文LaTeX模板，包括本科毕业论文、硕士毕业论文、博士毕业论文。现在仅支持硕士毕业论文格式，之后会陆续加入对其它格式的支持。
-ThuThesis基于[ThuThesis](https://github.com/xueruini/thuthesis) (清华大学LaTeX学位论文宏包) v5.3.2。
+LuThesis基于[ThuThesis](https://github.com/xueruini/thuthesis) (清华大学LaTeX学位论文宏包) v5.3.2编写。

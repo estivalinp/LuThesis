@@ -196,6 +196,12 @@
 %删除空白页中的页眉
 \usepackage{emptypage}
 
+%删除目录章节间隙
+\newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
+\addtocontents{lof}{\protect\noaddvspace}
+\addtocontents{lot}{\protect\noaddvspace}
+\addtocontents{loa}{\protect\noaddvspace}
+
 % estival 删除图表目录章节分隔 2018年4月12日02:39:55 
 %\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
 %                       \if@mainmatter

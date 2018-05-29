@@ -7,3 +7,9 @@ LuThesis为 <b>L</b>anzhou <b>U</b>niversity of <b>T</b>echnology <b>Thesis</b>
 
 此宏包旨在建立一个简单易用的兰州理工大学学位论文LaTeX模板，包括本科毕业论文、硕士毕业论文、博士毕业论文。现在仅支持硕士毕业论文格式，之后会陆续加入对其它格式的支持。
 LuThesis基于[ThuThesis](https://github.com/xueruini/thuthesis) (清华大学LaTeX学位论文宏包) v5.3.2编写。
+
+本模板在 TexLive 2017 及 TeXStudio 2.12 下测试成功，请下载对应软件并按照先TexLive后TeXStudio的顺序进行安装，安装教程请参考：
+
+https://jingyan.baidu.com/article/b2c186c83c9b40c46ff6ff4f.html
+
+https://blog.csdn.net/so_geili/article/details/72636466

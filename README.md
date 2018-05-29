@@ -9,5 +9,6 @@ LuThesis为 <b>L</b>anzhou <b>U</b>niversity of <b>T</b>echnology <b>Thesis</b>
 LuThesis基于[ThuThesis](https://github.com/xueruini/thuthesis) (清华大学LaTeX学位论文宏包) v5.3.2编写。
 
 本模板在 TexLive 2017 及 TeXStudio 2.12 下测试成功，请下载对应软件并按照先TexLive后TeXStudio的顺序进行安装，安装教程请参考：
+
 https://jingyan.baidu.com/article/b2c186c83c9b40c46ff6ff4f.html
 https://blog.csdn.net/so_geili/article/details/72636466

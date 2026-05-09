@@ -67,3 +67,23 @@
 		\bottomrule[1.5pt]
 	\end{tabular}
 \end{table}
+
+\section{DDPM采样算法}
+
+算法~\ref{alg:ddpm:sample} 给出了DDPM的逆向采样过程。
+
+\begin{myAlgorithm}
+	\setstretch{1}
+	\caption{DDPM逆向采样算法}
+	\label{alg:ddpm:sample}
+	\KwIn{训练好的去噪网络 $\epsilon_\theta$，时间步数 $T$，噪声调度 $\{\beta_t\}_{t=1}^T$\;}
+	\KwOut{生成样本 $x_0$\;}
+	$x_T \sim \mathcal{N}(0, \mathbf{I})$\;
+	\For{$t = T, T-1, \ldots, 1$}{
+		$z \sim \mathcal{N}(0, \mathbf{I})$ \textbf{if} $t > 1$, \textbf{else} $z = 0$\;
+		$\alpha_t \gets 1 - \beta_t$\;
+		$\bar{\alpha}_t \gets \prod_{s=1}^{t} \alpha_s$\;
+		$x_{t-1} \gets \frac{1}{\sqrt{\alpha_t}}\left(x_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}} \epsilon_\theta(x_t, t)\right) + \sqrt{\beta_t} \cdot z$\;
+	}
+	\Return{$x_0$}
+\end{myAlgorithm}

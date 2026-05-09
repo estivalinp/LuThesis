@@ -2,24 +2,193 @@
 
 **L**anzhou **U**niversity of **T**echnology **Thesis** LaTeX Template
 
-兰州理工大学学位论文 LaTeX 模板，支持硕士毕业论文格式。基于 [ThuThesis](https://github.com/xueruini/thuthesis) v5.3.2 改编。
+兰州理工大学学位论文 LaTeX 模板。基于 [ThuThesis](https://github.com/xueruini/thuthesis) v5.3.2 改编。
 
-## 编译方式
+- `graduate` 分支：硕士/博士研究生学位论文
+- `bachelor` 分支：本科毕业设计
 
-本模板必须使用 **XeLaTeX** 编译：
+## 快速开始
+
+1. 克隆仓库并切换到对应分支：
+
+```bash
+git clone https://github.com/longzheng268/LaTeX_Thesis_Template_for_Lanzhou_University_of_Technology.git
+cd LaTeX_Thesis_Template_for_Lanzhou_University_of_Technology
+
+# 研究生
+git checkout graduate
+
+# 本科生
+git checkout bachelor
+```
+
+2. 修改 `data/cover.tex` 中的个人信息
+3. 编写正文章节（`data/chap01.tex` 等）
+4. 编译：
 
 ```bash
 xelatex main.tex
 xelatex main.tex
 ```
 
-需要编译两遍以生成正确的目录和交叉引用。
-
 ## 环境要求
 
-- TeX 发行版：MiKTeX 或 TeX Live
-- 编译引擎：XeLaTeX
-- 编辑器：VSCode + LaTeX Workshop / TeXStudio 等均可
+- TeX 发行版：MiKTeX 或 TeX Live（2020 及以上版本）
+- 编译引擎：XeLaTeX（不支持 pdfLaTeX）
+- 编辑器：VSCode + LaTeX Workshop / TeXStudio / Overleaf 等均可
+
+### VSCode LaTeX Workshop 配置
+
+在项目根目录创建 `.vscode/settings.json`：
+
+```json
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "xelatex",
+      "command": "xelatex",
+      "args": ["-synctex=1", "-interaction=nonstopmode", "%DOC%"]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "xelatex x2",
+      "tools": ["xelatex", "xelatex"]
+    }
+  ]
+}
+```
+
+## 填写个人信息
+
+编辑 `data/cover.tex`，修改以下字段：
+
+```latex
+\thusetup{
+  stunum={你的学号},
+  ctitle={你的论文题目},
+  cdegree={硕士},              % 或 博士
+  cdepartment={你的学院},
+  cmajor={你的学科专业},
+  researchdirect={研究方向},
+  cauthor={你的姓名},
+  csupervisor={导师姓名 职称},
+  submitdate={2025年6月1日},
+  replydate={2025年6月15日},
+  chairman={答辩委员会主席},
+  etitle={English Title},
+  edegree={Master of Engineering},
+  eauthor={Your Name},
+  esupervisor={Professor XXX},
+  ckeywords={关键词1, 关键词2, 关键词3},
+  ekeywords={Keyword 1, Keyword 2, Keyword 3}
+}
+```
+
+中英文摘要在同一文件中的 `cabstract` 和 `eabstract` 环境内编写。
+
+## 编写正文
+
+在 `data/` 目录下创建章节文件，然后在 `main.tex` 中引入：
+
+```latex
+\mainmatter
+\include{data/chap01}
+\include{data/chap02}
+\include{data/chap03}
+```
+
+每个章节文件以 `\chapter{章标题}` 开头：
+
+```latex
+\chapter{绪论}
+\label{ch:intro}
+
+\section{研究背景}
+
+正文内容...
+
+\subsection{小节标题}
+
+正文内容...
+```
+
+### 插入公式
+
+行内公式用 `$...$`，行间公式用 `equation` 环境：
+
+```latex
+前向过程定义为：
+\begin{equation}
+    \label{equ:forward}
+    q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})
+\end{equation}
+
+由公式~\ref{equ:forward} 可知...
+```
+
+### 插入图片
+
+图片放在 `figures/` 目录下，支持 PDF、PNG、JPG 格式：
+
+```latex
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{fig_name.png}
+    \caption{图片标题}
+    \label{fig:label}
+\end{figure}
+
+如图~\ref{fig:label} 所示...
+```
+
+注意：PDF 格式引用时不写扩展名，PNG/JPG 需要写扩展名。
+
+### 插入表格
+
+```latex
+\begin{table}[htbp]
+    \centering
+    \caption{表格标题}
+    \label{tab:label}
+    \begin{tabular}{ccc}
+        \toprule[1.5pt]
+        列1 & 列2 & 列3 \\
+        \midrule[0.5pt]
+        数据1 & 数据2 & 数据3 \\
+        数据4 & 数据5 & 数据6 \\
+        \bottomrule[1.5pt]
+    \end{tabular}
+\end{table}
+
+如表~\ref{tab:label} 所示...
+```
+
+### 插入列表
+
+```latex
+% 有序列表
+\begin{enumerate}
+    \item 第一条内容。
+    \item 第二条内容。
+\end{enumerate}
+
+% 无序列表
+\begin{itemize}
+    \item 第一项内容；
+    \item 第二项内容。
+\end{itemize}
+```
+
+### 交叉引用
+
+```latex
+\label{fig:loss}         % 定义标签
+图~\ref{fig:loss}        % 引用图
+表~\ref{tab:result}      % 引用表
+公式~\ref{equ:forward}   % 引用公式
+第~\ref{ch:intro} 章     % 引用章节
+```
 
 ## 字体配置
 
@@ -34,28 +203,56 @@ xelatex main.tex
 | times.ttf / timesbd.ttf / timesi.ttf / timesbi.ttf | Times New Roman（西文） |
 | DejaVuSans.ttf | 特殊符号 |
 
-如需替换 DejaVu Sans 为其他字体，修改 `thuthesis.cls` 中对应的 `\newfontfamily\DejaSans` 行即可。
-
-DejaVu Sans 下载地址：https://dejavu-fonts.github.io/Download.html
+字体从项目本地 `fonts/` 目录加载，换电脑无需重新安装字体。
 
 ## 项目结构
 
 ```
-├── main.tex              主文件
-├── thuthesis.cls         文档类
-├── thuthesis.cfg         配置文件（个人信息）
-├── thuthesis.sty         额外宏包
-├── fonts/                字体目录
-├── data/                 章节内容
-│   ├── cover.tex         封面
+├── main.tex              主文件（控制文档结构）
+├── thuthesis.cls         文档类（格式定义，一般不需修改）
+├── thuthesis.cfg         配置文件（定理、章节名等）
+├── thuthesis.sty         额外宏包加载
+├── .gitignore            Git 忽略规则
+├── fonts/                字体目录（随项目分发）
+├── data/                 内容文件
+│   ├── cover.tex         封面信息 + 中英文摘要
 │   ├── chap01.tex        第一章
-│   ├── chap02.tex        第二章
-│   ├── conclusion.tex    结论
+│   ├── chap02.tex        第二章（按需添加更多）
+│   ├── conclusion.tex    总结与展望
 │   ├── references.tex    参考文献
-│   └── acknowledgment.tex 致谢
-├── figures/              图片目录
-└── ref/                  参考文献数据库
+│   ├── acknowledgment.tex 致谢
+│   ├── denotation.tex    符号对照表
+│   ├── abbreviation.tex  缩略词表
+│   └── appendixA.tex     附录
+├── figures/              图片目录（PDF/PNG/JPG）
+└── ref/                  BibTeX 数据库（可选）
 ```
+
+## 文档结构顺序（研究生）
+
+封面 → 第二封面 → 英文封面 → 原创性声明 → 目录 → 摘要 → 插图索引 → 表格索引 → 算法索引 → 符号对照表 → 缩略词表 → 正文 → 总结与展望 → 参考文献 → 致谢 → 附录
+
+## 常见问题
+
+**Q: 编译报错 `fontspec` 找不到字体？**
+
+确保使用 `xelatex` 而非 `pdflatex` 编译。模板字体从本地 `fonts/` 加载，不依赖系统字体。
+
+**Q: 交叉引用显示 `??`？**
+
+编译两遍即可解决。第一遍生成标签，第二遍解析引用。
+
+**Q: 如何添加新章节？**
+
+在 `data/` 下新建 `chapXX.tex`，然后在 `main.tex` 的 `\mainmatter` 部分添加 `\include{data/chapXX}`。
+
+**Q: 图片格式推荐？**
+
+矢量图（流程图、架构图）导出为 PDF；截图、照片用 PNG。JPG 适合照片但有损压缩。
+
+**Q: 硕士和博士有什么区别？**
+
+在 `data/cover.tex` 中设置 `cdegree={博士}` 和 `edegree={Doctor of Philosophy}`，其余格式自动适配。
 
 ## 清理中间文件
 

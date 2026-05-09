@@ -1,133 +1,69 @@
 \chapter{绪\hspace{1em}论}
 \label{ch1:intro}
 
-\section{引言}
-LUT \LaTeX~Template: LuThesis v1.1。
+\section{设计意义}
 
-该模板为兰州理工大学硕士学位论文模板，基于 ThuThesis LATEX Template 修改，Author: Yang Guoqiang，Email: estivalinp@163.com。该模板提供基本的文档元素例子，更复杂的例子请参考硕士论文：《杨国强\_车间调度问题的适应度地形及智能优化算法研究》。
+扩散模型近年来在图像生成领域展现了独特的优势。与传统的生成对抗网络（GAN）相比，扩散模型通过"加噪再去噪"的过程，能生成更稳定、更多样化的图像。本设计旨在探索扩散模型在手写数字图像生成中的实际应用能力。
 
-注意：使用该模板时，段落之间请空一行。脚注示例\footnote{这是一个脚注。This is a footnote.}。
+\section{设计目的及内容}
 
-\section{使用展示}
-
-\subsection{插入一幅图}
-
-例如，图 \ref{fig:ch1:flowchat} 为制造系统中的信息流图。
-\begin{figure}%[H] % use float package if you want it here
-	\centering
-	\includegraphics{fig_ch1_flowchat}
-	\caption{制造系统中的信息流图}
-	\label{fig:ch1:flowchat}
-\end{figure}
-
-\subsection{插入一张表}
-
-例如，对应的映射关系如表~\ref{tab:ch2:mapping} 所示。
-\begin{table}[htbp]
-	\wuhao\centering
-		\caption{工件序列、阶乘因子串及阶乘数之间的映射关系$(n=3)$}
-		\label{tab:ch2:mapping}
-		\begin{tabular}{m{4cm}<{\centering}m{4cm}<{\centering}m{4cm}<{\centering}}
-			\toprule[1.5pt]
-			工件序列 & 阶乘因子串 & 阶乘数（十进制形式）\\%\tabincell{c}{阶乘数\\（十进制形式）} \\
-			\midrule[0.5pt]
-			\{1, 2, 3\} & \{0, 0, 0\} & 0\\
-			\{1, 3, 2\} & \{0, 1, 0\} & 1\\
-			\{2, 1, 3\} & \{1, 0, 0\} & 2\\
-			\{2, 3, 1\} & \{1, 1, 0\} & 3\\
-			\{3, 1, 2\} & \{2, 0, 0\} & 4\\
-			\{3, 2, 1\} & \{2, 1, 0\} & 5\\
-			\bottomrule[1.5pt]
-		\end{tabular}
-\end{table}
-
-\subsection{插入一个行间公式}
-
-例如，最后一台机器上的两个相邻工件完成时间之差 $d_{j-1,j}$ 可由公式(\ref{equ:chap1:distence})算得。
-
-注意，模板中正文与begin{equation}之间不能存在空行，{\heiti 这是正文中的黑体}。
-\begin{equation}
-	\label{equ:chap1:distence}
-	\begin{aligned}
-	d_{j-i,j}=C_{i,m}-C_{j-i,m}&=\sum_{k=1}^{i}{p_{j,k}}-\min\limits_{1 \leq i \leq m}\big(\sum_{k=1}^{i-1}{p_{j,k}}+\sum_{k=i+1}^{m}{p_{j-1,k}}\big)\\
-	&=\max\limits_{1 \leq i \leq m}\big(\sum_{k=1}^{m}{p_{j,k}}+\sum_{k=1}^{i-1}{p_{j,k}}-\sum_{k=i+1}^{m}{p_{j-1,k}}\big)\\
-	&=\max\limits_{1 \leq i \leq m}\big(\sum_{k=1}^{m}{p_{j,k}}-\sum_{k=i+1}^{m}{p_{j-1,k}}\big)
-	\end{aligned}
-\end{equation}
-
-\subsection{插入一个算法}
-
-例如，算法 \ref{alg:ch2:encoding} 给出了阶乘数的详细编码过程。
-
-\begin{myAlgorithm}
-	\setstretch{1}
-    \caption{阶乘数编码算法} %\strut
-    \label{alg:ch2:encoding}
-    \KwIn{Job permutation $\pi=\{J_1,J_2,\cdots,J_{j-1},J_j,\cdots,J_n\} $\;}
-    \KwOut{Natural number $ N_F $\;}
-    \textbf{Initialize: }$ D_F=\{0,1,\cdots,n-1\} $, $ P=\{1,2,\cdots,n\} $, $ F=\varnothing $, $  N_F=0 $\;
-    \For {$j \gets 1;j \leqslant n;j \ne i$}
-    {
-		 \algolines{$ index \gets Find(P[index]==J_i) $}{Find the first position index from left to right in $ P $ which makes $ P[index] $ equal to $ J_i $.}
-		 $F[i] \gets D_F [index]$\;
-		 remove $ P[index] $ from $ P $\;
-		 $ N_F \gets N_F+F[i] \times D_F [n-i+1]! $\;
-    }
-    \Return{$ N_F $}
-\end{myAlgorithm}
-
-\subsection{定理及证明}
-
-本文使用Markov模型对HILS的收敛性进行分析。本文使用的依概率收敛定义如下：
-
-\begin{definition}
-	（依概率收敛\textsuperscript{[160]}）设 $ \{x(t),t=0,1,2 \cdots \} $ 为基于种群的随机算法产生的种群随机序列。称随机序列 $ \{x(t)\} $ 依概率弱收敛于全局最优，当且仅当：	
-	\begin{equation}
-		\label{equ:chap5:equation1}
-		\lim_{t \to +\infty}P\{x(t) \cap B^* \neq \varnothing\}=1
-	\end{equation}
-	
-	\noindent 其中 $ B^* $ 为优化问题的全局最优解。
-\end{definition}
-	
-\begin{nature}
-	对于不包含SHADE中选择算子的HILS，其种群空间 $ \varPhi^m $ 的所有状态（种群）都是连通的。对于所有状态 $ X,Y \in \varPhi^m $，从 $ X $ 到 $ Y $ 的一步转移概率大于0。即：
-	\begin{equation}
-		\label{equ:chap5:nature1}
-		P\{A^0 \cdot L^0 \cdot P^0 (X)=Y\}>0. 
-	\end{equation}
-\end{nature}
-
-\begin{theorem}
-	\label{sec:theorem}
-	假设 $ \{x(t),t=0,1,2 \cdots\} $ 为HILS迭代过程中的种群序列，则 $ \{x(t),t=0,1,2 \cdots\} $ 能依概率收敛到全局最优。
-\end{theorem}
-
-\begin{proof}
-	对于不包含SHADE中选择算子的HILS，仅存在三个算子：扰动算子 $ P^0 $，局部搜索算子$  L^0 $ 和接受准则算子 $ A^0 $。又因为 $ e^{- \Delta f / T_G}>0 $，所以：
-	\begin{equation}
-		\label{equ:chap5:proof1_3}
-		e^{- \Delta f/T_G}  \cdot \sum_{Z \in \varPhi^m}P\{L^0 \cdot P^0 (X)=Z\} \cdot P\{A^0 (X,Z)=Y\}>0.
-	\end{equation}
-	
-	\noindent （这是不缩进的一段）即，对于不包含SHADE中选择算子的HILS而言，从任意状态 $ X $ 到任意状态 $ Y $ 的一步转换概率大于0。因此，对于没有选择算子的HILS，所有种群状态都是连续的。\hfill $ \square $
-\end{proof}
-
-\subsection{条、款的使用}
+为了探索扩散模型在图像生成中的实际能力，本设计实现了一个手写数字图像生成系统。它支持用户通过Web界面进行交互，具体的设计任务包括以下几点：
 
 \begin{enumerate}
-	\item 第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条第一条。
-	\begin{itemize}[itemsep=0ex,partopsep=0pt,parsep=0ex,topsep=6bp,labelsep=10pt]
-		\item 第一款第一款第一款第一款第一款第一款第一款第一款第一款第一款第一款第一款第一款第一款第一款第一款第一款；
-		\item 第二款第二款第二款第二款第二款第二款第二款第二款第二款第二款第二款第二款第二款第二款第二款第二款第二款；
-		\item 第三款第三款第三款第三款第三款第三款第三款第三款第三款第三款第三款第三款第三款第三款第三款第三款第三款。
-	\end{itemize}
-	\item 第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条第二条。
-	\item 第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条第三条。
+	\item 需求分析，明确功能需求和性能需求。
+	\item 设计系统架构，包括前端界面、后端服务和模型训练模块。
+	\item 选择合适的技术和工具，包括扩散模型、U-Net网络和变分推断。
+	\item 实现系统，包括前端界面和后端服务。
 \end{enumerate}
 
-\section{本论文的主要研究内容及创新之处}
-***
+训练过程中的损失变化如图~\ref{fig:ch1:loss} 所示。
 
-\section{本论文的组织安排}
-***
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{fig_epoch_avg_loss}
+	\caption{训练过程中每轮平均损失变化曲线}
+	\label{fig:ch1:loss}
+\end{figure}
+
+\chapter{系统设计与实现}
+\label{ch2:design}
+
+\section{扩散模型原理}
+
+扩散模型的核心思想是定义一个前向过程和一个逆向过程。前向过程逐步向数据添加高斯噪声，逆向过程则学习去除噪声以恢复原始数据。
+
+\subsection{前向过程}
+
+给定原始数据 $x_0$，前向过程在 $T$ 个时间步上逐步添加噪声：
+\begin{equation}
+	\label{equ:forward}
+	q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1-\beta_t} x_{t-1}, \beta_t \mathbf{I})
+\end{equation}
+
+其中 $\beta_t$ 为第 $t$ 步的噪声调度参数。
+
+\subsection{逆向过程}
+
+逆向过程通过神经网络 $\epsilon_\theta$ 预测噪声分量：
+\begin{equation}
+	\label{equ:reverse}
+	p_\theta(x_{t-1} | x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \sigma_t^2 \mathbf{I})
+\end{equation}
+
+\section{训练环境对比}
+
+表~\ref{tab:ch2:hardware} 展示了不同硬件环境下的训练性能对比。
+
+\begin{table}[htbp]
+	\wuhao\centering
+	\caption{不同硬件环境下的训练性能对比}
+	\label{tab:ch2:hardware}
+	\begin{tabular}{m{4cm}<{\centering}m{2.5cm}<{\centering}m{2.5cm}<{\centering}m{2cm}<{\centering}}
+		\toprule[1.5pt]
+		硬件环境 & 显存 & 训练时间 & FID得分 \\
+		\midrule[0.5pt]
+		4$\times$NVIDIA A100 GPU & 40GB/卡 & $\sim$1小时 & 15.2 \\
+		1$\times$NVIDIA RTX 4060Ti & 16GB & $\sim$16小时 & 16.8 \\
+		\bottomrule[1.5pt]
+	\end{tabular}
+\end{table}

@@ -27,6 +27,12 @@ git checkout bachelor
 4. 编译：
 
 ```bash
+# 推荐：latexmk 自动编译（需安装 Perl）
+latexmk -xelatex main.tex
+
+# 或手动编译
+xelatex main.tex
+bibtex main     # 有参考文献时
 xelatex main.tex
 xelatex main.tex
 ```
@@ -35,29 +41,63 @@ xelatex main.tex
 
 - TeX 发行版：MiKTeX 或 TeX Live（2020 及以上版本）
 - 编译引擎：XeLaTeX（不支持 pdfLaTeX）
+- [Perl](https://www.perl.org/get.html)（仅使用 latexmk 自动编译时需要，Scoop 用户可 `scoop install perl`）
 - 编辑器：VSCode + LaTeX Workshop / TeXStudio / Overleaf 等均可
 
 ### VSCode LaTeX Workshop 配置
 
-在项目根目录创建 `.vscode/settings.json`：
+打开 VSCode 用户设置（`Ctrl+Shift+P` → "Open User Settings (JSON)"），添加以下配置：
 
-```json
+```jsonc
 {
+  // 编译工具定义
   "latex-workshop.latex.tools": [
     {
       "name": "xelatex",
       "command": "xelatex",
-      "args": ["-synctex=1", "-interaction=nonstopmode", "%DOC%"]
+      "args": ["-interaction=nonstopmode", "-synctex=1", "-file-line-error", "%DOC%"]
+    },
+    {
+      "name": "pdflatex",
+      "command": "pdflatex",
+      "args": ["-interaction=nonstopmode", "-synctex=1", "-file-line-error", "%DOC%"]
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": ["%DOCFILE%"]
+    },
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": ["-xelatex", "-interaction=nonstopmode", "-synctex=1", "-file-line-error", "%DOC%"]
     }
   ],
+  // 编译配方：第一个为默认，按 Ctrl+Alt+B 可切换
   "latex-workshop.latex.recipes": [
     {
-      "name": "xelatex x2",
-      "tools": ["xelatex", "xelatex"]
+      "name": "latexmk (XeLaTeX)",
+      "tools": ["latexmk"]
+    },
+    {
+      "name": "XeLaTeX (中文, 手动)",
+      "tools": ["xelatex", "bibtex", "xelatex", "xelatex"]
+    },
+    {
+      "name": "pdfLaTeX (English)",
+      "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
     }
-  ]
+  ],
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.autoBuild.run": "onSave"
 }
 ```
+
+- **latexmk (XeLaTeX)**：默认配方，自动判断是否需要 bibtex，推荐使用（需要安装 Perl）
+- **XeLaTeX (中文, 手动)**：手动编译流程，适合不需要 Perl 的环境
+- **pdfLaTeX (English)**：纯英文文档使用
+
+按 `Ctrl+Alt+B` 可手动选择编译配方。
 
 ## 填写个人信息
 

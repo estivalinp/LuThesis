@@ -100,7 +100,7 @@
   pifootnote}
 \ProcessKeyvalOptions*
 \PassOptionsToPackage{no-math}{fontspec}
-\LoadClass[a4paper,openany,UTF8,zihao=-4,scheme=plain]{ctexbook}
+\LoadClass[a4paper,openany,UTF8,zihao=-4,scheme=plain,fontset=none]{ctexbook}
 \ifthu@bachelor\relax\else
   \ifthu@master\relax\else
     \ifthu@doctor\relax\else
@@ -117,7 +117,6 @@
 \RequirePackage{xparse}
 \RequirePackage{amsmath}
 \RequirePackage[defaultsups]{newtxtext} % 正文使用Times New Roman字体
-%\RequirePackage{newtxmath} % 公式使用Times New Roman字体
 \RequirePackage{courier}
 \RequirePackage{graphicx}
 \RequirePackage[labelformat=simple]{subcaption}
@@ -191,7 +190,17 @@
 
 % 特殊符号（笑脸😋）
 \usepackage{fontspec}
-\newfontfamily\DejaSans{DejaVu Sans}
+% 中文字体 — 从本地 fonts/ 目录加载
+\setCJKmainfont[BoldFont=simhei, ItalicFont=simkai, Path=./fonts/, Extension=.ttf]{simsun0}
+\setCJKsansfont[Path=./fonts/, Extension=.ttf]{simhei}
+\setCJKmonofont[Path=./fonts/, Extension=.ttf]{simkai}
+\newCJKfontfamily\songti[Path=./fonts/, Extension=.ttf]{simsun0}
+\newCJKfontfamily\heiti[Path=./fonts/, Extension=.ttf]{simhei}
+\newCJKfontfamily\kaishu[Path=./fonts/, Extension=.ttf]{simkai}
+\newCJKfontfamily\fangsong[Path=./fonts/, Extension=.ttf]{simfang}
+% 西文字体 — newtxtext 已负责 Times New Roman
+% DejaVu Sans — 特殊符号
+\newfontfamily\DejaSans[Path=./fonts/, Extension=.ttf]{DejaVuSans}
 
 %删除空白页中的页眉
 \usepackage{emptypage}

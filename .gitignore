@@ -1,0 +1,23 @@
+# LaTeX intermediate files
+*.aux
+*.log
+*.lof
+*.lot
+*.loa
+*.toc
+*.out
+*.synctex.gz
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.thm
+
+# PDF output (except scan-auth.pdf, figures/ and main.pdf)
+*.pdf
+!scan-auth.pdf
+!figures/*.pdf
+!main.pdf
+
+# Claude Code
+.claude/
